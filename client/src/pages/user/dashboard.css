@@ -1,0 +1,25 @@
+.btns{
+    width: 280px;
+    height: 100px;
+    border-radius: 8px;
+    border-color: rgb(183, 183, 183);
+    border-width: 1px;
+
+    border-style: solid;
+}
+.img{
+    height: 60px;
+    width: 60px;
+    background-color: brown;
+    margin-top: 17px;
+    margin-left: 28px;
+}
+.dtls{
+    height: 80px;
+    width: 180px;
+    margin-top: -10px;
+    margin-left: 60px;
+}
+.navgt{
+    align-items: center;
+}

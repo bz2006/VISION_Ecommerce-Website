@@ -1,0 +1,19 @@
+.cardbtn {
+    min-width: 100%;
+    width: 100%;
+}
+.model{
+    font-size: medium;
+    font-weight: 700;
+
+}
+.price{
+    margin-top: -5px;
+    font-size: large;
+    font-weight: 700;
+
+}
+.crdimg{
+    height: 100%;
+    width: 100%;
+}
