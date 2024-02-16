@@ -40,9 +40,10 @@ export const createOrUpdateCart = async (req, res) => {
 // Delete a cart
 export const deleteCart = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { userId } = req.params; // Assuming userId is passed as a parameter
 
-        const deletedCart = await Cart.findByIdAndDelete(id);
+        // Find the cart associated with the userId and delete it
+        const deletedCart = await Cart.findOneAndDelete({ userId });
 
         if (!deletedCart) {
             return res.status(404).json({ error: 'Cart not found' });
@@ -55,13 +56,14 @@ export const deleteCart = async (req, res) => {
     }
 };
 
+
 // Get carts by user ID
 export const getCartsByUserId = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        // Find carts with the given user ID and populate the 'items.product' field with product details
-        const carts = await Cart.find({ user: userId }).populate('items.product');
+        // Find carts with the given user ID and project only the 'items' field, excluding the '_id' field
+        const carts = await Cart.find({ user: userId }, { items: 1, _id: 0 });
 
         if (!carts) {
             return res.status(404).json({ error: 'Carts not found' });
@@ -73,3 +75,4 @@ export const getCartsByUserId = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+

@@ -20,7 +20,7 @@ router.get("/get-cart/:id",  requireSignup,getCartsByUserId);
 
 //delete category
 router.delete(
-  "/delete-category/:id",
+  "/delete-cart/:id",
   requireSignup,
   deleteCart
 );

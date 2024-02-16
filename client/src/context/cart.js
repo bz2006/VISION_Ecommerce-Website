@@ -6,7 +6,9 @@ import axios from "axios";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cartlen, setCartLen] = useState(0);
+  const [perm, setPerm] = useState(0);
   const [auth, setAuth] = useAuth();
+  const [newcart, setnewCart] = useState([])
   const [cart, setCart] = useState(() => {
 
     const savedCart = localStorage.getItem("cart");
@@ -26,10 +28,27 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     if (!auth.user) {
     } else {
-      syncCartWithServer();
+
+      if (perm === 0) {
+        setPerm(1); // Update perm to 1
+        console.log(auth.user);
+        if (cart.length === 0) {
+          getCart(); // Call getCart
+        } else {
+          syncCartWithServer();
+        }
+      }
+      if (cart.length > cartlen) {
+
+
+
+        syncCartWithServer()
+      }
+
     }
-  }, [auth.user, cart]); // added cart to the dependency array
-  
+  }, [cart, auth.user]);
+  // added cart to the dependency array
+
 
   const combineCartItems = (cartItems) => {
     const combiner = [];
@@ -53,13 +72,15 @@ const CartProvider = ({ children }) => {
   const syncCartWithServer = async () => {
     try {
       // Assuming your server expects cart data in a specific format
-      const cartData = {items: []};
+      const cartData = { items: [] };
       for (let arr of cart) {
         cartData.items.push({
           product: arr[0],
           name: arr[1],
+          image: arr[2],
           mrp: arr[3],
           quantity: arr[4]
+
         });
       }
       await axios.put(`/api/v1/cart/create-up-cart/${auth.user._id}`, cartData);
@@ -68,6 +89,30 @@ const CartProvider = ({ children }) => {
       console.error("Error syncing cart with server:", error);
     }
   };
+
+
+  const getCart = async () => {
+    try {
+      const { data } = await axios.get(`/api/v1/cart/get-cart/${auth.user._id}`);
+
+      const newdata = [];
+      for (let arr of data) {
+        for (let dat of arr["items"]) {
+          const darray = [
+            dat["product"],
+            dat["name"],
+            dat["image"],
+            dat["mrp"],
+            dat["quantity"]]
+          newdata.push(darray)
+
+        }
+      }
+      setCart(newdata)
+    } catch (error) {
+
+    }
+  }
 
 
   return (
@@ -81,3 +126,4 @@ const CartProvider = ({ children }) => {
 const useCart = () => useContext(CartContext);
 
 export { useCart, CartProvider };
+
