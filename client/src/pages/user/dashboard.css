@@ -1,25 +1,28 @@
-.btns{
-    width: 280px;
-    height: 100px;
-    border-radius: 8px;
-    border-color: rgb(183, 183, 183);
-    border-width: 1px;
+@media screen and (min-width: 601px) and (max-width: 2000px) {
 
-    border-style: solid;
-}
-.img{
-    height: 60px;
-    width: 60px;
-    background-color: brown;
-    margin-top: 17px;
-    margin-left: 28px;
-}
-.dtls{
-    height: 80px;
-    width: 180px;
-    margin-top: -10px;
-    margin-left: 60px;
-}
-.navgt{
-    align-items: center;
+    
+    .btns {
+        width: 400px;
+        height: 100px;
+        background-color: white;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 10px;
+        border: 1px solid rgb(178, 178, 178);
+
+    }
+    .btns:hover{
+        box-shadow:2px 2px rgb(234, 234, 234);
+    }
+
+    .column {
+        padding-right: 30px;
+        padding-left: 10px;
+    }
+
+    .column2 {
+        font-family: "Rubik", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
 }
