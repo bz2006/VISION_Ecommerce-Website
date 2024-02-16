@@ -30,10 +30,9 @@ const CartProvider = ({ children }) => {
     } else {
 
       if (perm === 0) {
-        setPerm(1); // Update perm to 1
-        console.log(auth.user);
+        setPerm(1); 
         if (cart.length === 0) {
-          getCart(); // Call getCart
+          getCart(); 
         } else {
           syncCartWithServer();
         }

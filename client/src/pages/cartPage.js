@@ -28,14 +28,11 @@ function CartPage() {
     const handleDelete = async(productId) => {
         const updatedCart = cart.filter(item => item[0] !== productId);
         setCart(updatedCart);
-        console.log("deleted", updatedCart)
-        console.log("lenth", updatedCart.length)
         if (auth.user) {
             
             if (updatedCart.length === 0) {
                 await axios.delete(`/api/v1/cart//delete-cart/${auth.user._id}`);
                 syncCartWithServer(updatedCart)
-                console.log("lenthcccc",cart.length)
             }
             else if(cart.length===0) {
                 getCart()
@@ -69,7 +66,6 @@ function CartPage() {
     }
     const syncCartWithServer = async (upcart) => {
         try {
-            console.log("upcart", upcart)
             // Assuming your server expects cart data in a specific format
             const cartData = { items: [] };
             for (let arr of upcart) {
@@ -82,7 +78,6 @@ function CartPage() {
 
                 });
             }
-            console.log(cartData)
             await axios.put(`/api/v1/cart/create-up-cart/${auth.user._id}`, cartData);
             console.log("Cart synced with server successfully in cart page.");
         } catch (error) {
