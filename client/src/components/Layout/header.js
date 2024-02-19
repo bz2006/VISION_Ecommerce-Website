@@ -60,6 +60,7 @@ const Header = () => {
 
                   <Dropdown.Menu className='dropmenu'>
                     <Link to="/login">
+                      {sessionStorage.setItem("redirectUrl", window.location.pathname)}
                       <button className='lrrbtn' style={{ backgroundColor: "white", color: "black" }}>Log In</button>
                     </Link>
                     <Link to="/signup">

@@ -16,13 +16,14 @@ import Users from "./pages/Admin/users";
 import Orders from "./pages/Admin/orders";
 import CreateCategory from "./pages/Admin/catagory";
 import Products from "./pages/Admin/products";
-import Youraddresses from "./pages/user/youraddress";
+import Youraddress from "./pages/user/youraddress";
 import CreateProduct from "./pages/Admin/createproducts";
 import UpdateProduct from "./pages/Admin/updateproducts";
 import Yourorders from "./pages/user/yourorders";
 import ShopPage from "./pages/shop";
 import ProductPage from "./pages/productpage";
 import CartPage from "./pages/cartPage";
+import Checkout from "./pages/user/checkout"
 
 axios.defaults.baseURL = "http://localhost:3000"
 axios.defaults.withCredentials = true
@@ -46,7 +47,10 @@ function App() {
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route path="my_account" element={<Dashboard />} />
             <Route path="my_account/your-orders" element={<Yourorders />} />
-            <Route path="my_account/your-address" element={<Youraddresses />} />
+            <Route path="my_account/your-address" element={<Youraddress />} />
+          </Route>
+          <Route path="/order" element={<PrivateRoute />}>
+            <Route path="checkout-order" element={<Checkout />} />
           </Route>
           <Route path="/dashboard" element={<AdminRoute />}>
             <Route path="manage.vision/admin" element={<Admindashboard />} />

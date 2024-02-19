@@ -8,7 +8,6 @@ const CartProvider = ({ children }) => {
   const [cartlen, setCartLen] = useState(0);
   const [perm, setPerm] = useState(0);
   const [auth, setAuth] = useAuth();
-  const [newcart, setnewCart] = useState([])
   const [cart, setCart] = useState(() => {
 
     const savedCart = localStorage.getItem("cart");

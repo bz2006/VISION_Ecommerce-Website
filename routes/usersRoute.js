@@ -1,11 +1,9 @@
 import express from "express";
 import multer from "multer";
-import {
-  createProductController, deleteproduct, getSingleProduct, updateProducts, storage
-} from "../controllers/productController.js";
+import { useraddress } from "../controllers/usersController.js";
 import { isAdmin, requireSignup } from "../middlewares/authMiddleware.js";
-import { getAllUsers } from "../controllers/usersController.js";
-const upload = multer({ storage })
+import { getAllUsers,getalladdress, } from "../controllers/usersController.js";
+// const upload = multer({ storage })
 
 const router = express.Router();
 
@@ -14,21 +12,19 @@ const router = express.Router();
 
 
 
-//routes
+// User Routes ----------------------------------
+
 router.post(
-  "/create-product", requireSignup,
-  isAdmin, upload.array('images'), createProductController
-
-);
-//routes
-router.put(
-  "/update-product/:id",
-  requireSignup,
-  isAdmin, upload.array("images"),
-  updateProducts
+  "/update-user/:id",
+  requireSignup,useraddress
 
 );
 
+// //get single products
+router.get("/getall-address/:id", requireSignup, getalladdress);
+
+
+// Admin Routes ---------------------------------
 //get all Users
 router.get("/getall-users", requireSignup,
   isAdmin, getAllUsers);
@@ -36,15 +32,18 @@ router.get("/getall-users", requireSignup,
 
 
 
-//get single products
-router.get("/getsingle-product/:id", requireSignup,
-  isAdmin, getSingleProduct);
 
-//get single product Page
-router.get("/product-page/:id", getSingleProduct);
 
-// //delete product
-router.delete("/delete-product/:id", requireSignup,
-  isAdmin, deleteproduct);
+// //get single product Page
+// router.get("/product-page/:id", getSingleProduct);
+
+// // //delete product
+// router.delete("/delete-product/:id", requireSignup,
+//   isAdmin, deleteproduct);
+
+
+
+
+
 
 export default router;

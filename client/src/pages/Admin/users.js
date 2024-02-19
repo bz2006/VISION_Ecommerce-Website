@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminSidebar from '../../components/Layout/admin/adminSidebar'
 import AdminHeader from '../../components/Layout/admin/adminheader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./Admindashboard.css"

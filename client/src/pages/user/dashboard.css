@@ -12,7 +12,7 @@
 
     }
     .btns:hover{
-        box-shadow:2px 2px rgb(234, 234, 234);
+        box-shadow:0 0 0 2px rgb(234, 234, 234);
     }
 
     .column {

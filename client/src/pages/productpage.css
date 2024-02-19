@@ -6,6 +6,26 @@ body {
     .pdiv {
         margin: 60px 80px;
     }
+    .grid{
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: repeat(5,80px);
+        grid-auto-rows: 80px;
+        column-gap: 1rem;
+    }
+    .cimg{
+        width:50%;
+        border: 1px solid black;
+    }
+    .simg{
+        margin-right: -85px;
+        cursor: pointer;
+    }
+    .cimg:hover{
+        box-shadow: 0 0 0 2px rgb(227, 227, 227);
+    }
+        
+    
 
     .descpre {
         font-family: Arial, sans-serif;
@@ -65,8 +85,27 @@ body {
     .shcard{
         width: 380px;
     }
+    .grid{
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: repeat(5,80px);
+        grid-auto-rows: 80px;
+        column-gap: 1rem;
+    }
+    .cimg{
+        width:50%;
+        border: 1px solid black;
+    }
+    .simg{
+        margin-right: -85px;
+        cursor: pointer;
+    }
+    .cimg:hover{
+        box-shadow: 0 0 0 2px rgb(227, 227, 227);
+    }
     .pdiv {
         margin-top: 40px;
+        display: block;
     }
 
     .colone {

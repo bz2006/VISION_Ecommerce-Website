@@ -3,10 +3,13 @@ import { useAuth } from "../../../context/auth";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  
+import Redirecter from "../../redirecter";
 
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
   const [auth] = useAuth();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const authCheck = async () => {
@@ -25,5 +28,5 @@ export default function PrivateRoute() {
     return null; // Don't render anything while authentication check is in progress
   }
 
-  return <Outlet />;
+  return ok ? <Outlet /> : <Redirecter/>;
 }

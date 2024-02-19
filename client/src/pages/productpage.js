@@ -4,13 +4,10 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Tab, Nav } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import "./productpage.css"
 import { useCart } from "../context/cart";
-
-
 
 const ProductPage = () => {
     const [product, setProducts] = useState([]);
@@ -21,41 +18,55 @@ const ProductPage = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [mrp, setMrp] = useState("");
-    const [selectedImages, setSelectedImages] = useState([]);
+    const [images, setImages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState();
     const [Quantity, setQuantity] = useState(1)
-
 
     const getSingleProduct = async () => {
         try {
             const { data } = await axios.get(`/api/v1/product/product-page/${params.id}`);
             setProducts(data);
-            setId(data.product._id)
+            setId(data.product._id);
             setName(data.product.name);
             setDescription(data.product.description);
-            setSelectedImages(data.product.images);
+            setImages(data.product.images);
             setMrp(data.product.mrp);
+            setSelectedImage(data.product.images[0]);
+            
 
             if (data.success) {
-
+                // Do something if needed
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something wwent wrong in getting catgeory");
+            toast.error("Something went wrong in getting category");
         }
     };
 
     useEffect(() => {
         getSingleProduct(params.id);
-        //eslint-disable-next-line
-    }, []);
+    }, [params.id]); 
 
     return (
-
         <Layout>
             <div className="pdiv">
                 <Row xs={1} md={2} className="g-4 row row-cols-md-2 row-cols-1">
                     <Col className="colone">
-                        <img src={`http://localhost:3000/uploads/${selectedImages[0]}`} alt="" style={{ width: "80%" }}></img>
+                        <img src={`http://localhost:3000/uploads/${selectedImage}`} alt="" style={{ width: "80%" }}></img>
+                        <div className="grid">
+                            {images.map((image, index) => (
+                                <div key={index} className="simg" >
+                                        <img
+                                            src={`http://localhost:3000/uploads/${image}`}
+                                            alt=""
+                                            className="cimg"
+                                            // style={{ width: "50%" ,border: "1px solid black"}}
+                                            onClick={() => setSelectedImage(image)} // Update selected image on click
+                                        />
+                                   
+                                </div>
+                            ))}
+                        </div>
                     </Col>
                     <Col className="coltwo">
                         <h2 className="modln">{name}</h2>
@@ -74,37 +85,19 @@ const ProductPage = () => {
                             }}
                         />
                         <button className="addtc" onClick={() => {
-                            const finalqty = [pid,name,selectedImages,mrp,Quantity]
-                            setCart([...cart,finalqty])
+                            const finalqty = [pid, name, images, mrp, Quantity];
+                            setCart([...cart, finalqty]);
                         }}>Add to Cart</button><br />
                         <button className="buy">Buy Now</button>
                     </Col>
-
-
-
-                    {/* </Row>
-                <Tab.Container id="myTab" defaultActiveKey="section1">
-                    <Nav variant="tabs">
-                        <Row xs={3} md={3} className="g-4 row row-cols-md-2 row-cols-1">
-                            <Col><Nav.Item>
-                                <Nav.Link eventKey="section1">Section 1</Nav.Link>
-                            </Nav.Item></Col><Col><Nav.Item>
-                                <Nav.Link eventKey="section2">Section 2</Nav.Link>
-                            </Nav.Item></Col><Col><Nav.Item>
-                                <Nav.Link eventKey="section3">Section 3</Nav.Link>
-                            </Nav.Item></Col>
-                        </Row>
-                    </Nav>
-                </Tab.Container> */}
                 </Row>
                 <Row xs={1} md={2} className="g-4 row row-cols-md-2 row-cols-1">
                     <pre className="descpre">{description}</pre>
                 </Row>
-            </div>
-        </Layout >
 
-    )
+            </div>
+        </Layout>
+    );
 }
 
-
-export default ProductPage
+export default ProductPage;

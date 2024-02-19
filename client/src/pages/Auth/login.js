@@ -9,11 +9,15 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+    const authData = JSON.parse(localStorage.getItem("auth"));
+    const redirectUrl = sessionStorage.getItem("redirectUrl");
 
     useEffect(() => {
         const authData = JSON.parse(localStorage.getItem("auth"));
+        const redirectUrl = sessionStorage.getItem("redirectUrl");
+
         if (authData) {
-            navigate(location.state || "/");
+            navigate(redirectUrl || "/"); // Redirect to captured URL or default location after login
         }
     }, []);
 
@@ -25,7 +29,7 @@ function Login() {
                 console.log("Logged in");
                 toast.success("Login Successful");
                 localStorage.setItem("auth", JSON.stringify(res.data));
-                navigate(location.state || "/");
+                navigate(redirectUrl || "/");
                 window.location.reload();
             } else {
                 console.log(res.data.success);
@@ -45,7 +49,7 @@ function Login() {
                 <form onSubmit={loginf}>
                     <div className='frm'>
                         <h1 className="txt">Log In</h1>
-                        <h6>New to this site?<a href='/signup' style={{textDecoration:"none",color:"green"}}> Sign Up</a></h6>
+                        <h6>New to this site?<a href='/signup' style={{ textDecoration: "none", color: "green" }}> Sign Up</a></h6>
 
 
                         <div className="one">
@@ -59,7 +63,7 @@ function Login() {
                         </div>
 
                         <button type="submit" className="subbtn">Login</button>
-                        <hr className='divi'/>
+                        <hr className='divi' />
                     </div>
                 </form>
             </div>

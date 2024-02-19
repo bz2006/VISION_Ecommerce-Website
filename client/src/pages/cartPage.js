@@ -5,8 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useAuth } from '../context/auth';
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom';
 import "./cartPage.css"
 
@@ -84,13 +82,24 @@ function CartPage() {
             console.error("Error syncing cart with server:", error);
         }
     };
+
+    const HandleCheckout = async()=>{
+        if (auth.user) {
+            navigate("/order/checkout-order")
+        }
+        else{
+            sessionStorage.setItem("redirectUrl", window.location.pathname);
+            navigate("/login")
+            
+        }
+    }
     return (
         <Layout >
             <div style={{ backgroundColor: "rgb(236, 239, 243)" }}>
                 <h1>Shopping Cart</h1>
                 {cart.length !== 0 ? (
                     <>
-                        <div className="pdiv">
+                        <div className="ctdiv">
                             <Row >
                                 <Col  >
                                     <table style={{ width: "100%" }}>
@@ -125,7 +134,7 @@ function CartPage() {
                                                             setCart(updatedCart);
                                                         }}
                                                     /></td>
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", fontWeight: "bold", backgroundColor: "white", paddingTop: "38px" }}>₹{cartItem[3] * cartItem[4]}.00  <br /> <a className="delcart" icon={faTrashCan} onClick={() => {
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", fontWeight: "bold", backgroundColor: "white", paddingTop: "38px" }}>₹{cartItem[3] * cartItem[4]}.00  <br /> <a className="delcart"  onClick={() => {
                                                         handleDelete(cartItem[0]);
                                                     }} >Delete</a></td>
 
@@ -148,7 +157,7 @@ function CartPage() {
 
                             </Row>
                             <div className="btndiv">
-                                <button className="buybtn" >Procced To Buy</button>
+                                <button className="buybtn" onClick={HandleCheckout}>Procced To Buy</button>
                             </div>
                         </div>
                         <div className="mobcart">

@@ -51,7 +51,6 @@ const CreateCategory = () => {
             toast.error("Something wwent wrong in getting catgeory");
         }
     };
-    console.log("hai  "+categories)
     useEffect(() => {
         getAllCategory();
     }, []);

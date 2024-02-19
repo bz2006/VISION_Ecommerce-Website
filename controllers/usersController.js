@@ -1,85 +1,72 @@
 import Product from "../models/productModel.js";
-import Category from "../models/categoryModel.js"
-import multer from "multer";
-import userModel from "../models/userModel.js";;
+import User from "../models/userModel.js";
 
 
 
-const FILE_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpeg': 'jpeg',
-    'image/jpg': 'jpg',
-    'video/mp4':'mp4'
-}
+// const FILE_TYPE_MAP = {
+//     'image/png': 'png',
+//     'image/jpeg': 'jpeg',
+//     'image/jpg': 'jpg',
+//     'video/mp4': 'mp4'
+// }
 
-export const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const isValid = FILE_TYPE_MAP[file.mimetype];
-        let uploadError = new Error('invalid image type');
+// export const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         const isValid = FILE_TYPE_MAP[file.mimetype];
+//         let uploadError = new Error('invalid image type');
 
-        if (isValid) {
-            uploadError = null
-        }
-        cb(uploadError, 'C:/Users/EPHREM B/VISION/client/public/uploads')
-    },
-    filename: function (req, file, cb) {
-        const newfile = file.originalname.split(" ").join("_")
-        cb(null, newfile)
-    }
-})
+//         if (isValid) {
+//             uploadError = null
+//         }
+//         cb(uploadError, 'C:/Users/EPHREM B/VISION/client/public/uploads')
+//     },
+//     filename: function (req, file, cb) {
+//         const newfile = file.originalname.split(" ").join("_")
+//         cb(null, newfile)
+//     }
+// })
 
 
 
 
-export const createProductController = async (req, res) => {
-    const category = await Category.findById(req.body.category);
-    if (!category) return res.status(400).send('Invalid Category')
-    const file = req.file;
-    let imagesPaths = [];
-    const basePath = "public/uploads"///`${req.protocol}://${req.get('host')}/public`;
-    const files = req.files
-    if (files) {
-        files.map(file => {
-            imagesPaths.push(file.filename);
-        })
-    }
+export const useraddress = async (req, res) => {
+    const userId = req.params.id; // User ID
+    const addresses = req.body; // List of address objects
 
-    if (!files) return res.status(400).send('No image in the request')
-
-    let product = new Product({
-        name: req.body.name,
-        description: req.body.description,
-        images: imagesPaths,
-        mrp: req.body.mrp,
-        category: req.body.category,
-        InStock: req.body.InStock,
-        rating: req.body.rating,
-        numReviews: req.body.numReviews,
-        isFeatured: req.body.isFeatured,
-    })
-
-    product = await product.save();
-
-    if (!product)
-        return res.status(500).send('The product cannot be created')
-
-    res.send(product);
-
-}
-
-
-
-export const getSingleProduct = async (req, res) => {
     try {
-        const productId = req.params.id;
-
-        const product = await Product.findById(productId).populate('category');
-
-        if (!product) {
-            return res.status(404).json({ success: false, message: 'Product not found' });
+        const user = await User.findById(userId); // Use User model
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
 
-        return res.status(200).json({ success: true, product });
+        // Loop through the addresses and push each address object to user's addresses
+        addresses.forEach(({ name, address, city, state, country, pin, phone }) => {
+            user.addresses.push({ name, address, city, state, country, pin, phone });
+        });
+
+        await user.save();
+
+        res.json({ message: 'Addresses added successfully', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+
+
+
+export const getalladdress = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const user = await User.findById(userId)
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'user not found' });
+        }
+        const Alladdres = user.addresses
+        return res.status(200).json(Alladdres);
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
     }
