@@ -43,6 +43,9 @@ const userSchema = new mongoose.Schema({
         }
     
     }],
+    defaddress:{
+        type:String,
+    },
     role: {
         type: Number,
         default: 0,
