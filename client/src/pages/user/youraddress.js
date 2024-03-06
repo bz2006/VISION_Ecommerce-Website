@@ -93,9 +93,8 @@ const Youraddress = () => {
         try {
             const adrsid = selectedaddress._id
             const Data = selectedaddress;
-            console.log("1")
             await axios.put(`/api/v1/users/update-user-adrs/${auth.user._id}`, { adrsid, selectedaddress });
-            console.log("2")
+
             Getallddress()
 
 
@@ -109,7 +108,7 @@ const Youraddress = () => {
     const handleDelete = async (seladrs) => {
 
         try {
-            await axios.post(`/api/v1/users/delete-user-adrs/${auth.user._id}`, seladrs );
+            await axios.post(`/api/v1/users/delete-user-adrs/${auth.user._id}`, seladrs);
             Getallddress()
 
 
@@ -136,11 +135,10 @@ const Youraddress = () => {
 
     return (
         <Layout>
+            <h2 style={{margin:"30px",fontFamily:"Rubik", fontWeight: "400" }}>Your Addresses</h2>
             <div className="adrsmdiv">
-
-
                 {/* ----------------------------------- Display All Address  --------------------------*/}
-                <Row xs={1} md={3} className="g-4 row row-cols-md-4 row-cols-1">
+                <Row xs={1} md={3} className="g-4 row row-cols-md-4 row-cols-1" style={{ margin: "auto" }}>
                     <Col className="btncol"><button onClick={handleShowcr} className="adrsbtn"><h1 style={{ fontSize: "70px" }}>+</h1></button></Col>
                     {Alladdress.length > 0 && Alladdress.map(adr => (
                         < Col key={adr._id} className="adrsdiv">

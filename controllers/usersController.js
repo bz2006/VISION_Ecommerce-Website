@@ -103,7 +103,7 @@ export const getalladdress = async (req, res) => {
         }
         const Alladdres = user.addresses
         const defadrs = user.defaddress
-        console.log(user.defaddress)
+        console.log("def",user.defaddress)
         return res.status(200).json({ Alladdres, defadrs });
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });

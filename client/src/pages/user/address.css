@@ -19,7 +19,7 @@
 }
 
 .btncol{
-    margin-right: 20px;
+    min-width: max-content;
 }
 .adrsbtn{
     width: 300px;

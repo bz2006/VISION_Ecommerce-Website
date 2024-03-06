@@ -5,12 +5,15 @@ import connectdb from "./config/db.js";
 import authRoute from "./routes/authRoute.js"
 import cors from "cors"
 import categoryRoute from "./routes/categoryRoute.js"
+import razorpayRoutes from "./routes/rzppaymentRoute.js"
 import productRoute from "./routes/productRoute.js"
 import usersRoute from "./routes/usersRoute.js"
 import cartRoute from "./routes/cartRoute.js"
 
 
 dotenv.config();
+
+
 
 const app = express()//express
 connectdb();//Database
@@ -28,6 +31,7 @@ app.use(express.static('public'));
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/cart", cartRoute);
 app.use("/api/v1/users", usersRoute);
+app.use("/api/v1/razorpay", razorpayRoutes); 
 
 app.get("/", (req, res) => {
     res.send("<h1>Welcome to ecommerce app</h1>");

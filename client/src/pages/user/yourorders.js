@@ -4,6 +4,7 @@ import Layout from '../../components/Layout/Layout'
 const Yourorders = () => {
     return (
         <Layout>
+            <h2 style={{margin:"30px",fontFamily:"Rubik", fontWeight: "400" }}>Your Orders</h2>
             <div style={{ display: 'flex', justifyContent: 'center',margin:"30px"}}>
                 <table style={{ width: "900px" ,borderSpacing:"0",borderCollapse:"separate",borderRadius:"15px",border:"1px solid rgb(223, 223, 223)"}}>
                     <thead>

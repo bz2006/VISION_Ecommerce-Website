@@ -115,9 +115,9 @@ function CartPage() {
                                             {cart.length > 0 && cart.map(cartItem => (
                                                 <tr key={cartItem[0]}>
                                                     {console.log(cartItem[0])}
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", backgroundColor: "white" }}><img src={`http://localhost:3000/uploads/${cartItem[2][0]}`} alt="" style={{ width: "90px" }}></img></td>
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", backgroundColor: "white" }}>{cartItem[1]}</td>
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", backgroundColor: "white" }}><input
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}><img src={`http://localhost:3000/uploads/${cartItem[2][0]}`} alt="" style={{ width: "90px" }}></img></td>
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}>{cartItem[1]}</td>
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}><input
                                                         type="number"
                                                         min={1}
                                                         className="qty"
@@ -134,7 +134,7 @@ function CartPage() {
                                                             setCart(updatedCart);
                                                         }}
                                                     /></td>
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Arial, sans-serif", fontWeight: "bold", backgroundColor: "white", paddingTop: "38px" }}>₹{cartItem[3] * cartItem[4]}.00  <br /> <a className="delcart"  onClick={() => {
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", fontWeight: "bold", backgroundColor: "white", paddingTop: "38px" }}>₹{cartItem[3] * cartItem[4]}.00  <br /> <a className="delcart"  onClick={() => {
                                                         handleDelete(cartItem[0]);
                                                     }} >Delete</a></td>
 
