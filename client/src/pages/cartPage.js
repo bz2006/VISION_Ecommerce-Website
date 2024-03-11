@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import "./cartPage.css"
 
 function CartPage() {
+    var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
+
     const [cart, setCart] = useCart([])
     const [auth, setAuth] = useAuth()
     const [qty, setQty] = useState(0);
@@ -115,7 +117,7 @@ function CartPage() {
                                             {cart.length > 0 && cart.map(cartItem => (
                                                 <tr key={cartItem[0]}>
                                                     {console.log(cartItem[0])}
-                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}><img src={`http://localhost:3000/uploads/${cartItem[2][0]}`} alt="" style={{ width: "90px" }}></img></td>
+                                                    <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}><img src={hosturl+cartItem[2][0]} alt="" style={{ width: "90px" }}></img></td>
                                                     <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}>{cartItem[1]}</td>
                                                     <td style={{ height: "120px", fontSize: "larger", fontFamily: "Rubik", backgroundColor: "white" }}><input
                                                         type="number"
@@ -164,7 +166,7 @@ function CartPage() {
                             {cart.length > 0 && cart.map(cartItem => (
                                 <div className="cartcrd" key={cartItem[0]}>
                                     <div className="card flex-row" id="card">
-                                        <img className="card-img" src={`http://localhost:3000/uploads/${cartItem[2][0]}`} />
+                                        <img className="card-img" src={hosturl+cartItem[2][0]} />
                                         <div className="card-body">
                                             <h4 className="card-title h5 h4-sm">{cartItem[1]}</h4>
                                             <h6 className="card-text">₹{cartItem[3]}</h6>

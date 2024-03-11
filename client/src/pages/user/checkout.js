@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Layout from '../../components/Layout/Layout';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import { useCart } from "../../context/cart";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
@@ -13,6 +16,7 @@ import "./checkout.css";
 const Checkout = () => {
 
     const [defid, setdefid] = useState("");
+    const [defbid, setdefbillid] = useState("");
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     const [orderId, setOrderId] = useState('');
@@ -21,11 +25,23 @@ const Checkout = () => {
     const [amount, setAmount] = useState(0);
     const [Alladdress, setallAdrs] = useState([])
     const [Shipaddress, setShipaddress] = useState([])
+    const [billaddress, setBilladdress] = useState([])
     const [selectedaddress, setSelectedadrs] = useState([])
+
+
+    //Model Controls
+    const [showship, setShowship] = useState(false);
+    const [showbill, setShowbill] = useState(false);
+    const handleCloseship = () => setShowship(false);
+    const handleClosebill = () => setShowbill(false);
+    const handleShowship = () => setShowship(true);
+    const handleShowbill = () => setShowbill(true);
 
     window.onload = function Getallad() {
         Getallddress()
+
     }
+
     const synccart = async () => {
         await axios.put(`/api/v1/cart/create-up-cart/${auth.user._id}`, cart);
     }
@@ -34,6 +50,7 @@ const Checkout = () => {
             const alladrs = await axios.get(`/api/v1/users/getall-address/${auth.user._id}`);
             setallAdrs(alladrs.data.Alladdres)
             setdefid(alladrs.data.defadrs)
+            setdefbillid(alladrs.data.defadrs)
 
 
         } catch (error) {
@@ -59,6 +76,7 @@ const Checkout = () => {
 
     // Function to create an order
     const createOrder = async () => {
+        console.log(Shipaddress,billaddress)
         const response = await fetch('/api/v1/razorpay/create-order', {
             method: 'POST',
             headers: {
@@ -69,7 +87,7 @@ const Checkout = () => {
             }),
         });
         const data = await response.json();
-        console.log(data)
+        console.log(response)
         setOrderId(data.id);
         handlePayment()
     };
@@ -85,12 +103,13 @@ const Checkout = () => {
             order_id: orderId,
             handler: function (response) {
                 console.log(response);
+                Placeorder()
                 navigate("/dashboard/my_account/your-orders")
                 setCart([])
                 synccart()
             },
             prefill: {
-                name: 'Test User',
+                name: auth.user.username,
                 email: 'test@example.com',
             },
             notes: {
@@ -101,22 +120,29 @@ const Checkout = () => {
         rzp.open();
     };
 
-    const Placeorder = async (e) => {
+    const Placeorder = async () => {
 
 
-        e.preventDefault();
         try {
-            
+
             const currentDate = new Date();
             const orddate = currentDate.toDateString()
-            const orderData = new FormData();
-            orderData.append("orderId", orderId);
-            orderData.append("products", cart);
-            orderData.append("Oderdate", orddate);
-            orderData.append("Shipaddress", Shipaddress);
-            orderData.append("total", amount);
-
-            const { data } = await axios.post("/api/v1/order/create-order", orderData);
+            const orderid = "240" + Date.now();
+            const usrid = auth.user._id
+            const prod = []
+            for (let pr of cart) {
+                prod.push([pr[0], pr[1], pr[2][0], pr[3], pr[4]])
+            }
+            const orderData = {
+                userid: usrid,
+                orderId: orderid,
+                Orderdate: orddate,
+                Shipaddress: Shipaddress,
+                billaddress: billaddress,
+                total: amount,
+                products: prod
+            };
+            const { data } = await axios.post("/api/v1/orders/create-order", orderData);
 
         } catch (error) {
             console.log(error);
@@ -133,30 +159,60 @@ const Checkout = () => {
                 <h1>Review Your Order</h1>
                 <Row xs={1} md={2} className="g-4 row row-cols-md-2 row-cols-1">
                     <Col className='col1'>
-                        <h6 style={{ marginTop: "15px" }}>Shipping Address</h6>
-                        {Alladdress.length > 0 && Alladdress.map(adr => {
+                        <div style={{ display: "inline-block" }}>
+                            <h6 style={{ marginTop: "15px" }}>Shipping Address</h6>
+                            {Alladdress.length > 0 && Alladdress.map(adr => {
 
-                            if (adr._id === defid) {
-                                if (Shipaddress.length === 0) {
-                                    setShipaddress(adr)
+                                if (adr._id === defid) {
+                                    if (Shipaddress.length === 0) {
+                                        setShipaddress(adr)
+                                    }
+
+                                    return (
+                                        <div key={adr._id}>
+                                            <h6 style={{ fontSize: "12px", fontFamily: "Rubik", fontWeight: "500", marginTop: "15px" }}>{adr.name}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.address}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.state}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.country}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.pin}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.phone}</h6>
+                                            <a onClick={() => {
+                                                handleShowship()
+                                            }} className="adbtn">Change</a>
+                                        </div>
+                                    );
                                 }
+                                return null
 
-                                return (
-                                    <div key={adr._id}>
-                                        <h6 style={{ fontSize: "12px", fontFamily: "Rubik", fontWeight: "500", marginTop: "15px" }}>{adr.name}</h6>
-                                        <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.address}</h6>
-                                        <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.state}</h6>
-                                        <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.country}</h6>
-                                        <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.pin}</h6>
-                                        <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.phone}</h6>
-                                        <a onClick={() => {
-                                        }} className="adbtn">Change</a>
-                                    </div>
-                                );
-                            }
-                            return null
+                            })}
+                        </div>
+                        <div style={{ display: "inline-block", marginLeft: "70px" }}>
+                            <h6 style={{ marginTop: "15px" }}>Billing Address</h6>
+                            {Alladdress.length > 0 && Alladdress.map(adr => {
 
-                        })}
+                                if (adr._id === defbid) {
+                                    if (billaddress.length === 0) {
+                                        setBilladdress(adr)
+                                    }
+
+                                    return (
+                                        <div key={adr._id}>
+                                            <h6 style={{ fontSize: "12px", fontFamily: "Rubik", fontWeight: "500", marginTop: "15px" }}>{adr.name}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.address}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.state}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.country}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.pin}</h6>
+                                            <h6 style={{ fontSize: "11px", fontFamily: "Rubik", fontWeight: "500" }}>{adr.phone}</h6>
+                                            <a onClick={() => {
+                                                handleShowbill()
+                                            }} className="adbtn">Change</a>
+                                        </div>
+                                    );
+                                }
+                                return null
+
+                            })}
+                        </div>
                     </Col>
                     <Col className='col2'>
                         <h5>Order Summary</h5>
@@ -201,8 +257,66 @@ const Checkout = () => {
                         </table>
                     </Col>
                 </Row>
+
+                {/* ----------------- Change ship Address------------------- */}
+                <>
+
+
+                    <Modal show={showship} onHide={handleCloseship} size="lg">
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add New Address</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body >
+                            {Alladdress.length > 0 && Alladdress.map(adr => (
+
+                                <div key={adr._id}>
+                                    <input type="radio" name="addressRadio" value={adr._id} onChange={(e) => {setdefid(e.target.value);setShipaddress(adr)}} style={{ display: "block", display: "inline-block", height: "45px", width: "20px" }} />
+                                    <div style={{ display: "inline-block", border: "1px solid black", margin: "10px", padding: "10px", borderRadius: "10px" }}><h6><h4>{adr.name}</h4>  {adr.address}  {adr.state}  {adr.country}  PIN - {adr.pin}  PHONE - {adr.phone}</h6></div>
+                                </div>
+                            ))}
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="primary" onClick={()=>{
+                            navigate("/dashboard/my_account/your-address")
+                            sessionStorage.setItem("redirectUrl", "/order/checkout-order");
+                        }}>
+                                Add New Address
+                            </Button>
+                            <Button variant="primary" onClick={handleCloseship}>
+                                Proceed
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
+                {/* ----------------- Change ship Address------------------- */}
+                {/* ----------------- Change bill Address------------------- */}
+                <>
+
+
+                    <Modal show={showbill} onHide={handleClosebill} size="lg">
+                        <Modal.Header closeButton>
+                            <Modal.Title>Bill Address</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body >
+                            {Alladdress.length > 0 && Alladdress.map(adr => (
+
+                                <div key={adr._id}>
+                                    <input type="radio" name="addressRadio" value={adr._id} onChange={(e) => setdefbillid(e.target.value)} style={{ display: "block", display: "inline-block", height: "45px", width: "20px" }} />
+                                    <div style={{ display: "inline-block", border: "1px solid black", margin: "10px", padding: "10px", borderRadius: "10px" }}><h6><h4>{adr.name}</h4>  {adr.address}  {adr.state}  {adr.country}  PIN - {adr.pin}  PHONE - {adr.phone}</h6></div>
+                                </div>
+                            ))}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary" onClick={handleClosebill}>
+                                Proceed
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
+                {/* ----------------- Change Address------------------- */}
             </div >
         </>
+
     )
 }
 

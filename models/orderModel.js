@@ -1,26 +1,42 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
+  userid: {
+    type: String
+  },
   orderid: {
     type: String
   },
   products: [
-    {
-      type: String
-    }
+    [String,String,String,Number, Number]
   ],
-  orderid: {
+  orderdate: {
     type: String
-  }, orderdate: {
-    type: String
-  }, shipaddress: {
-    type: String
+  }, 
+  shipaddress: {
+    name: String,
+    address: String,
+    city: String,
+    state: String,
+    country: String,
+    pin: Number,
+    phone: Number
   },
   billaddress: {
-    type: String
+    name: String,
+    address: String,
+    city: String,
+    state: String,
+    country: String,
+    pin: Number,
+    phone: Number
   },
   total: {
     type: Number
+  },
+  status: {
+    type: String,
+    default:"Proccesing"
   },
 });
 

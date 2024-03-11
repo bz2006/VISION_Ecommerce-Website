@@ -19,7 +19,7 @@ const Youraddress = () => {
     const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
     const [defid, setdefid] = useState("");
-    const [defset, setDefset] = useState();
+    const [defset, setDefset] = useState(0);
     const [name, setName] = useState("");
     const [upname, setupName] = useState("");
     const [address, setaddress] = useState("");
@@ -59,6 +59,7 @@ const Youraddress = () => {
     }, [])
 
     const Handlecreate = async () => {
+
         handleClosecr()
         try {
 
@@ -74,6 +75,12 @@ const Youraddress = () => {
             })
             await axios.post(`/api/v1/users/update-user/${auth.user._id}`, Data);
             Getallddress()
+            const redirectUrl = sessionStorage.getItem("redirectUrl");
+            console.log("1")
+            if (redirectUrl == "/order/checkout-order") {
+                console.log("2")
+                navigate(redirectUrl)
+            }
 
         } catch (error) {
             console.log(error);
@@ -135,7 +142,7 @@ const Youraddress = () => {
 
     return (
         <Layout>
-            <h2 style={{margin:"30px",fontFamily:"Rubik", fontWeight: "400" }}>Your Addresses</h2>
+            <h2 style={{ margin: "30px", fontFamily: "Rubik", fontWeight: "400" }}>Your Addresses</h2>
             <div className="adrsmdiv">
                 {/* ----------------------------------- Display All Address  --------------------------*/}
                 <Row xs={1} md={3} className="g-4 row row-cols-md-4 row-cols-1" style={{ margin: "auto" }}>

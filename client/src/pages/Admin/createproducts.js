@@ -67,7 +67,7 @@ const CreateProduct = () => {
       productData.append("name", name);
       productData.append("description", description);
       for (let img of selectedImages) {
-        productData.append("images", img);
+        productData.append("images", img)
       }
 
       productData.append("mrp", mrp);

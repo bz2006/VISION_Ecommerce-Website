@@ -9,6 +9,7 @@ import razorpayRoutes from "./routes/rzppaymentRoute.js"
 import productRoute from "./routes/productRoute.js"
 import usersRoute from "./routes/usersRoute.js"
 import cartRoute from "./routes/cartRoute.js"
+import OrderRoutes from "./routes/orderRoute.js"
 
 
 dotenv.config();
@@ -32,6 +33,7 @@ app.use("/api/v1/product", productRoute);
 app.use("/api/v1/cart", cartRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/razorpay", razorpayRoutes); 
+app.use("/api/v1/orders", OrderRoutes); 
 
 app.get("/", (req, res) => {
     res.send("<h1>Welcome to ecommerce app</h1>");
@@ -41,3 +43,5 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log('****Server Started on '+process.env. DEV_MODE +" Mode PORT:"+ PORT+"****")
 })
+
+ 

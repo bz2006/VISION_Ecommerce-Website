@@ -299,7 +299,7 @@ input {
     margin-left: 35px;
     width: 935px;
     border-radius: 15px;
-    min-height: 400px;
+    min-height: 100px;
     overflow: hidden;
 }
 
@@ -349,8 +349,24 @@ th {
 
 }
 
+
 .delpr:hover {
     color: red
     
     
+}
+.orderow{
+    cursor: pointer;
+}
+.orderow:hover{
+    background-color: rgb(241, 241, 241);
+}
+
+.statusdiv{
+    width: max-content;
+    padding: 20px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-left: 35px;
 }

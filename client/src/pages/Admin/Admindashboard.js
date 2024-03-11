@@ -15,9 +15,7 @@ const Admindashboard = () => {
 
           <div className="col-md-3">
             <div>
-              <h3> Admin Name :</h3>
-              <h3> Admin Email :</h3>
-              <h3> Admin Contact : </h3>
+              <img src='http://localhost:3000/uploads/Screenshot_(41).png' style={{width:"1020px"}}></img>
             </div>
           </div>
         </div>

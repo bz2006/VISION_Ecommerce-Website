@@ -6,6 +6,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 
 function Signup() {
+  var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
+
 
   const [username, setusername] = useState("")
   const [email, setemail] = useState("")
@@ -41,7 +43,7 @@ function Signup() {
   return (
     <>
       <video autoPlay loop muted className="video-bg">
-        <source src="http://localhost:3000/uploads/weblogin.mp4" type="video/mp4" />
+        <source src={`${hosturl}weblogin.mp4`} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div className='mdivs'>

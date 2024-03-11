@@ -11,6 +11,8 @@ import "./Admindashboard.css"
 
 
 const UpdateProduct = () => {
+  var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
+
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
@@ -142,7 +144,7 @@ const UpdateProduct = () => {
                                   const imageUrl = URL.createObjectURL(image);
                                   return <img src={imageUrl} alt="upload" className="primg" />;
                                 } catch (error) {
-                                  return <img src={`http://localhost:3000/uploads/${image}`} alt="upload" className="primg" />;
+                                  return <img src={hosturl+image} alt="upload" className="primg" />;
                                 }
                               })()}
                               <FontAwesomeIcon icon={faTrashCan} className="prdele" onClick={() => deleteHandler(image)} />

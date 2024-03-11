@@ -8,7 +8,7 @@ function AdminSidebar() {
   return (
     <div className='sidebar'>
       <ul className='ul'>
-        <li className='li'><Nav.Link href="/" className='a'>Home</Nav.Link></li>
+        <li className='li'><Nav.Link href="/dashboard/manage.vision/admin" className='a'>Home</Nav.Link></li>
 
         <li className='li'>
           <Nav.Link href="/dashboard/manage.vision/admin/products" className='a'>Store Products      </Nav.Link>

@@ -10,6 +10,7 @@ import "./productpage.css"
 import { useCart } from "../context/cart";
 
 const ProductPage = () => {
+    var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
     const [product, setProducts] = useState([]);
     //const navigate = useNavigate();
     const [cart, setCart] = useCart()
@@ -52,12 +53,12 @@ const ProductPage = () => {
             <div className="pdiv">
                 <Row xs={1} md={2} className="g-4 row row-cols-md-2 row-cols-1">
                     <Col className="colone">
-                        <img src={`http://localhost:3000/uploads/${selectedImage}`} alt="" style={{ width: "80%" }}></img>
+                        <img src={hosturl+selectedImage} alt="" style={{ width: "80%" }}></img>
                         <div className="grid">
                             {images.map((image, index) => (
                                 <div key={index} className="simg" >
                                         <img
-                                            src={`http://localhost:3000/uploads/${image}`}
+                                            src={hosturl+image}
                                             alt=""
                                             className="cimg"
                                             // style={{ width: "50%" ,border: "1px solid black"}}

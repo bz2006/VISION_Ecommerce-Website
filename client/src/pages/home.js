@@ -9,14 +9,18 @@ import { useAuth } from '../context/auth.js';
 
 function HomePage() {
     const [auth] = useAuth()
+    var mainUrl = window.location.protocol + "//" + window.location.host;
+
+    // Log the main URL to the console
+    console.log("Main URL: " + mainUrl);
     return (
         <Layout>
             <>
-            
+
                 <Image src="https://static.wixstatic.com/media/c1ec53_be8960ac122345d59d16a1aaa2853c31~mv2.webp" fluid />;
             </>
             <pre>{JSON.stringify(auth, null, 4)}</pre>
-            
+
 
             <>
                 <Container>

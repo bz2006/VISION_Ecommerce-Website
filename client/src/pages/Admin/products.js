@@ -8,6 +8,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import "./Admindashboard.css"
 const Products = () => {
+  var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
+
   const [products, setProducts] = useState([]);
 
 
@@ -78,7 +80,7 @@ const Products = () => {
                   <tbody>
                     {products.length > 0 && products.map(product => (
                       <tr key={product._id}>
-                        <td><img src={`http://localhost:3000/uploads/${product.images[0]}`} alt="" style={{ height: "60px" }}></img></td>
+                        <td><img src={hosturl+product.images[0]} alt="" style={{ height: "60px" }}></img></td>
                         <td>{product.name}</td>
                         <td>{product.mrp}</td>
                         <td>{product.InStock === 0 ? 'In stock' : 'Out of stock'}</td>

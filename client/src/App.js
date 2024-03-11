@@ -24,6 +24,7 @@ import ShopPage from "./pages/shop";
 import ProductPage from "./pages/productpage";
 import CartPage from "./pages/cartPage";
 import Checkout from "./pages/user/checkout"
+import OrderDetails from "./pages/Admin/orderDetails";
 
 axios.defaults.baseURL = "http://localhost:3000"
 axios.defaults.withCredentials = true
@@ -60,6 +61,7 @@ function App() {
             <Route path="manage.vision/admin/catagory" element={<CreateCategory />} />
             <Route path="manage.vision/admin/create-product" element={<CreateProduct />} />
             <Route path="manage.vision/admin/update-product/:id" element={<UpdateProduct />} />
+            <Route path="manage.vision/admin/order/:id" element={<OrderDetails />} />
           </Route>
         </Routes>
       </>

@@ -12,6 +12,7 @@ import "./productpage.css"
 
 
 const ShopPage = () => {
+    var hosturl = window.location.protocol + "//" + window.location.host+"/uploads/"
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
@@ -44,7 +45,7 @@ const ShopPage = () => {
                     {products.map(product => (
                         <Col key={product._id} className="colone">
                             <Card className="shcard" onClick={() => { navigate(`/product-page/${product._id}`) }} style={{borderColor:"white",cursor:"pointer"}}>
-                                <Card.Img variant="top" src={`http://localhost:3000/uploads/${product.images[0]}`}  />
+                                <Card.Img variant="top" src={hosturl+product.images[0]}  />
                                 <Card.Body >
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text style={{fontSize:"larger", color:"rgb(201, 8, 8)",fontWeight:"500"}}>
