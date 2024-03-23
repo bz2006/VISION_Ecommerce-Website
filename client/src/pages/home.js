@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Container } from 'react-bootstrap';
 import { useAuth } from '../context/auth.js';
+import "./home.css"
 
 
 function HomePage() {
@@ -17,7 +18,8 @@ function HomePage() {
         <Layout>
             <>
 
-                <Image src="https://static.wixstatic.com/media/c1ec53_be8960ac122345d59d16a1aaa2853c31~mv2.webp" fluid />;
+                <Image  src="https://static.wixstatic.com/media/c1ec53_be8960ac122345d59d16a1aaa2853c31~mv2.webp" className="responsive" />
+                 <Image  src="http://localhost:3000/uploads/home_logo_2p.png" className="responsive1"  />
             </>
             <pre>{JSON.stringify(auth, null, 4)}</pre>
 
