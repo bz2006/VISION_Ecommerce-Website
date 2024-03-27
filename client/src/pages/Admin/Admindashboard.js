@@ -15,7 +15,7 @@ const Admindashboard = () => {
 
           <div className="col-md-3">
             <div>
-              <img src='http://localhost:3000/uploads/Screenshot_(41).png' style={{width:"1020px"}}></img>
+              <img src='http://localhost:3000/uploads/Screenshot_(41).png' style={{width:"1020px"}} alt=''></img>
             </div>
           </div>
         </div>

@@ -4,12 +4,15 @@ import morgan from "morgan";
 import connectdb from "./config/db.js";
 import authRoute from "./routes/authRoute.js"
 import cors from "cors"
+import bodyParser from 'body-parser';
 import categoryRoute from "./routes/categoryRoute.js"
 import razorpayRoutes from "./routes/rzppaymentRoute.js"
 import productRoute from "./routes/productRoute.js"
 import usersRoute from "./routes/usersRoute.js"
 import cartRoute from "./routes/cartRoute.js"
 import OrderRoutes from "./routes/orderRoute.js"
+import { sendEmail } from "./middlewares/nodemailerMiddleware.js";
+import { sendwelcomemail } from "./middlewares/nodemailerMiddleware.js";
 
 
 dotenv.config();
@@ -25,6 +28,7 @@ app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
+app.use(bodyParser.json());
 
 app.use("/api/v1/auth",authRoute)
 app.use("/api/v1/category", categoryRoute);
@@ -34,6 +38,9 @@ app.use("/api/v1/cart", cartRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/razorpay", razorpayRoutes); 
 app.use("/api/v1/orders", OrderRoutes); 
+
+app.post('/send-email', sendEmail);
+app.post('/send-welcome-mail', sendwelcomemail);
 
 app.get("/", (req, res) => {
     res.send("<h1>Welcome to ecommerce app</h1>");

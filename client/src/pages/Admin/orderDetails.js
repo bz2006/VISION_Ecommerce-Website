@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import AdminSidebar from '../../components/Layout/admin/adminSidebar'
 import { useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import axios from "axios";
-import Col from 'react-bootstrap/Col'; import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
+import AdminSidebar from '../../components/Layout/admin/adminSidebar'
 import AdminHeader from '../../components/Layout/admin/adminheader'
+import axios from "axios";
 import "./Admindashboard.css"
 
 
@@ -20,22 +18,15 @@ const OrderDetails = () => {
   const params = useParams();
 
 
-  const getSingleProduct = async () => {
+  const getSingleOrder = async () => {
     try {
       const singleorder = await axios.get(`/api/v1/orders/order/${params.id}`);
       setOrder(singleorder.data);
-      console.log(singleorder.data)
-      // setDescription(data.product.description);
-      // setSelectedImages(data.product.images);
-      // setMrp(data.product.mrp);
-      // setCategory(data.product.category);
-      // setInStock(data.product.InStock);
       if (singleorder.success) {
 
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something wwent wrong in getting catgeory");
+      toast.error("Something wwent wrong in getting order");
     }
   };
 
@@ -44,18 +35,15 @@ const OrderDetails = () => {
       await axios.post(`/api/v1/orders/update-status/${params.id}`, { status })
       navigate("/dashboard/manage.vision/admin/orders")
     } catch (error) {
-      console.log(error);
 
     }
   }
 
   useEffect(() => {
-    getSingleProduct(params.id);
+    getSingleOrder(params.id);
 
   }, []);
   useEffect(() => {
-    console.log("Status", status)
-
   }, [status]);
 
 

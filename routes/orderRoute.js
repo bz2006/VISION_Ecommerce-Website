@@ -9,7 +9,11 @@ router.post(
     requireSignup,createOrder
   
   );
-
+  router.get(
+    "/user-order/:id",
+    requireSignup,getOrdersByorderId
+  
+  );
 
   router.get(
     "/get-orders/:id",
