@@ -49,6 +49,9 @@ const Checkout = () => {
             setallAdrs(alladrs.data.Alladdres)
             setdefid(alladrs.data.defadrs)
             setdefbillid(alladrs.data.defadrs)
+            if(alladrs.data.Alladdres.length ===0){
+                handleShowship()
+            }
 
 
         } catch (error) {
@@ -211,9 +214,10 @@ const Checkout = () => {
                     <Col className='col1'>
                         <div style={{ display: "inline-block" }}>
                             <h6 style={{ marginTop: "15px" }}>Shipping Address</h6>
-                            {Alladdress.length > 0 && Alladdress.map(adr => {
 
-                                if (adr._id === defid) {
+                            {Alladdress.length > 0 && Alladdress.map(adr => {
+                                
+                                if (adr._id === defid ) {
                                     if (Shipaddress.length === 0) {
                                         setShipaddress(adr)
                                     }
@@ -232,7 +236,8 @@ const Checkout = () => {
                                         </div>
                                     );
                                 }
-                                return null
+                                
+
 
                             })}
                         </div>

@@ -10,9 +10,8 @@ import razorpayRoutes from "./routes/rzppaymentRoute.js"
 import productRoute from "./routes/productRoute.js"
 import usersRoute from "./routes/usersRoute.js"
 import cartRoute from "./routes/cartRoute.js"
-import OrderRoutes from "./routes/orderRoute.js"
-import { sendEmail } from "./middlewares/nodemailerMiddleware.js";
-import { sendwelcomemail } from "./middlewares/nodemailerMiddleware.js";
+import OrderRoutes from "./routes/orderRoute.js";
+import { sendwelcomemail, sendEmail } from "./middlewares/nodemailerMiddleware.js";
 
 
 dotenv.config();
