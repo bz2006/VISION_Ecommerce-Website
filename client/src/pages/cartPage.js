@@ -30,15 +30,10 @@ function CartPage() {
         setCart(updatedCart);
         if (auth.user) {
 
-            if (updatedCart.length === 0) {
-                await axios.delete(`/api/v1/cart//delete-cart/${auth.user._id}`);
+                await axios.delete(`/api/v1/cart/delete-cart/${auth.user._id}`);
                 syncCartWithServer(updatedCart)
-            }
-            else if (cart.length === 0) {
-                getCart()
-            }
+         
         }
-
 
     };
 
@@ -79,6 +74,7 @@ function CartPage() {
                 });
             }
             await axios.put(`/api/v1/cart/create-up-cart/${auth.user._id}`, cartData);
+            console.log("synpage")
         } catch (error) {
         }
     };

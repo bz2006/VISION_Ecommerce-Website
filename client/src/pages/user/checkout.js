@@ -364,6 +364,12 @@ const Checkout = () => {
                             ))}
                         </Modal.Body>
                         <Modal.Footer>
+                        <Button variant="primary"  onClick={() => {
+                                navigate("/dashboard/my_account/your-address")
+                                sessionStorage.setItem("redirectUrl", "/order/checkout-order");
+                            }}>
+                                Add New Address
+                            </Button>
                             <Button variant="primary" onClick={handleClosebill}>
                                 Proceed
                             </Button>
@@ -524,6 +530,12 @@ const Checkout = () => {
                             ))}
                         </Modal.Body>
                         <Modal.Footer>
+                        <Button variant="primary"  onClick={() => {
+                                navigate("/dashboard/my_account/your-address")
+                                sessionStorage.setItem("redirectUrl", "/order/checkout-order");
+                            }}>
+                                Add New Address
+                            </Button>
                             <Button variant="primary" onClick={handleClosebill}>
                                 Proceed
                             </Button>
