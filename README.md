@@ -7,6 +7,11 @@ This is a full-fledged e-commerce website built using the MERN stack (MongoDB, E
 
 # Getting Started
 
+Clone this repo using this command:
+
+   
+    https://github.com/bz2006/VISION_Ecommerce-Website.git
+ 
 ## Install Dependencies
 
 Install all dependencies used in both backend and frontend:
@@ -19,10 +24,11 @@ Install all dependencies used in both backend and frontend:
   - <code>cd client</code>
   - <code>npm install</code>
 
-### Running
+## Running
 
 Now you can run the project locally:
 
 - Go to project root directory
   - <code>cd VISION_Ecommerce-Website</code>
   - <code>npm run dev</code>
+
