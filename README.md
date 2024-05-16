@@ -21,8 +21,8 @@ Install all dependencies used in both backend and frontend:
 
 ### Running
 
-After this you can run the project locally,:
+Now you can run the project locally:
 
-- Go to project root dir
+- Go to project root directory
   - <code>cd VISION_Ecommerce-Website</code>
   - <code>npm run dev</code>
