@@ -1,7 +1,28 @@
 
 # VISION - MERN STACK E-COMMERCE WEBSITE
 
+# Description
+
 This is a full-fledged e-commerce website built using the MERN stack (MongoDB, Express.js, React.js, and Node.js). It provides a dynamic and user-friendly online shopping experience, allowing customers to browse, search, and purchase products with ease.
 
-Provide an admin interface for managing products, orders, users.
-Offer functionalities for adding new products and new catagories.
+# Getting Started
+
+## Install Dependencies
+
+Install all dependencies used in both backend and frontend:
+
+- To install on backend
+  - <code>cd VISION_Ecommerce-Website</code>
+  - <code>npm install</code>
+
+  - To install on frontend
+  - <code>cd client</code>
+  - <code>npm install</code>
+
+### Running
+
+After this you can run the project locally,:
+
+- Go to project root dir
+  - <code>cd VISION_Ecommerce-Website</code>
+  - <code>npm run dev</code>
