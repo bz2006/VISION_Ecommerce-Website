@@ -15,7 +15,7 @@ Install all dependencies used in both backend and frontend:
   - <code>cd VISION_Ecommerce-Website</code>
   - <code>npm install</code>
 
-  - To install on frontend
+- To install on frontend
   - <code>cd client</code>
   - <code>npm install</code>
 
