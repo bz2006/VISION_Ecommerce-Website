@@ -11,7 +11,7 @@ import productRoute from "./routes/productRoute.js"
 import usersRoute from "./routes/usersRoute.js"
 import cartRoute from "./routes/cartRoute.js"
 import OrderRoutes from "./routes/orderRoute.js";
-import { sendwelcomemail, sendEmail } from "./middlewares/nodemailerMiddleware.js";
+import { sendwelcomemail, sendEmail ,sendOTP} from "./middlewares/nodemailerMiddleware.js";
 
 
 dotenv.config();
@@ -40,6 +40,7 @@ app.use("/api/v1/orders", OrderRoutes);
 
 app.post('/send-email', sendEmail);
 app.post('/send-welcome-mail', sendwelcomemail);
+app.post('/send-verification', sendOTP);
 
 app.get("/", (req, res) => {
     res.send("<h1>Welcome to VISION!</h1>");
